@@ -1,0 +1,45 @@
+@model Feedback
+@{
+    ViewData["Title"] = "Feedback Management";
+    var entries = ViewBag.FeedbackEntries as List<Feedback> ?? new List<Feedback>();
+}
+
+<section class="intro">
+    <p class="eyebrow">EXPERIMENT 7 · ASP.NET CORE MVC</p>
+    <h1>Feedback Management</h1>
+    <p>Share your experience. The form below uses HTML Helpers and model validation.</p>
+</section>
+
+@if (TempData["SuccessMessage"] is string message)
+{
+    <div class="success-message" role="status">@message</div>
+}
+
+<div class="content-grid">
+    <section class="card">
+        <h2>Submit feedback</h2>
+        <p class="muted">Fields marked with * are required.</p>
+        @await Html.PartialAsync("_FeedbackForm", Model)
+    </section>
+
+    <section class="card entries-card">
+        <div class="section-heading"><div><h2>Recent feedback</h2><p class="muted">Feedback received in this running demo</p></div><span class="count">@entries.Count</span></div>
+        @if (entries.Count == 0)
+        {
+            <p class="empty">No feedback yet. Submit the first response.</p>
+        }
+        else
+        {
+            @foreach (var entry in entries)
+            {
+                <article class="feedback-entry">
+                    <div class="entry-heading"><strong>@entry.Name</strong><span>@entry.SubmittedAt.ToString("dd MMM yyyy, h:mm tt")</span></div>
+                    <div class="rating">Rating: @entry.Rating / 5</div>
+                    <p>@entry.Comments</p>
+                </article>
+            }
+        }
+    </section>
+</div>
+
+<aside class="lesson-note"><strong>What this experiment demonstrates</strong><br />The <code>Feedback</code> model stores the form data and validation rules. The controller checks the submitted model. The form is a partial view, and the shared layout supplies the common page header and footer.</aside>

@@ -1,0 +1,29 @@
+@model Feedback
+
+@using (Html.BeginForm("Index", "Feedback", FormMethod.Post, new { @class = "feedback-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "Please correct the following:", new { @class = "validation-summary" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, new { @class = "form-label" }) <span class="required">*</span>
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "e.g. Asha Patel" })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "field-error" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, new { @class = "form-label" }) <span class="required">*</span>
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "you@example.com", type = "email" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "field-error" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Rating, new { @class = "form-label" }) <span class="required">*</span>
+        @Html.DropDownListFor(model => model.Rating, new Microsoft.AspNetCore.Mvc.Rendering.SelectList(new[] { new { Value = 0, Text = "Choose a rating" }, new { Value = 1, Text = "1 - Poor" }, new { Value = 2, Text = "2 - Fair" }, new { Value = 3, Text = "3 - Good" }, new { Value = 4, Text = "4 - Very good" }, new { Value = 5, Text = "5 - Excellent" } }, "Value", "Text"), new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "field-error" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comments, new { @class = "form-label" }) <span class="required">*</span>
+        @Html.TextAreaFor(model => model.Comments, 4, 40, new { @class = "form-control", placeholder = "Tell us what you think..." })
+        @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "field-error" })
+    </div>
+    <button class="submit-button" type="submit">Send feedback</button>
+}

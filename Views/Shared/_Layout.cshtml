@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Practical 7</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" asp-controller="Feedback" asp-action="Index">Feedback Desk</a>
+        <nav><a asp-controller="Feedback" asp-action="Index">Home</a></nav>
+        <span class="top-label">ASP.NET Core MVC · Experiment 7</span>
+    </header>
+    <main class="container">
+        @RenderBody()
+    </main>
+    <footer class="footer">Experiment 7 · MVC Layout, Partial View and Validation</footer>
+</body>
+</html>
